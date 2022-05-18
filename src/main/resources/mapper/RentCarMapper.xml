@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prudential.rental.mapper.RentCarMapper">
+
+    <!--返回Map-->
+    <resultMap id="BaseResultMap" type="com.prudential.rental.entity.RentCar">
+
+    </resultMap>
+
+    <!--基本的sql查询字段 公共引用...-->
+    <sql id="Base_Column_List">
+        *
+    </sql>
+
+    <select id="getAvailableCarList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rent_car
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="item != null">
+                id not in
+                <foreach item="item" index="index" collection="rentingCarIdList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+
+    <select id="getRentingCarIdList" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        select
+        distinct(car_id) car_id
+        from rent_order
+        where
+         ((start_time <![CDATA[ <= ]]> #{startTime,jdbcType=TIMESTAMP} and end_time <![CDATA[ >= ]]> #{startTime,jdbcType=TIMESTAMP})
+        or (start_time <![CDATA[ <= ]]> #{endTime,jdbcType=TIMESTAMP} and end_time <![CDATA[ >= ]]> #{endTime,jdbcType=TIMESTAMP})
+        or (start_time <![CDATA[ >= ]]> #{startTime,jdbcType=TIMESTAMP} and end_time <![CDATA[ <= ]]> #{endTime,jdbcType=TIMESTAMP}))
+        and state = #{state,jdbcType=INTEGER}
+
+
+
+    </select>
+
+
+</mapper>
