@@ -8,6 +8,7 @@ import com.prudential.rental.service.IRentOrderService;
 import com.prudential.rental.web.ApiResponse;
 import com.prudential.rental.web.BaseController;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import java.util.Date;
  * @since 2022-05-18
  */
 @RestController
+@Validated
 @RequestMapping("/api/rental")
 public class RentalController extends BaseController {
 
@@ -39,7 +41,8 @@ public class RentalController extends BaseController {
     @ApiOperation(value="list all of cars infos between start time and end time")
     @GetMapping("/cars")
     public ApiResponse carsList(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-                                @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endTime) {
+                                @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endTime
+                                ) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         apiResponse.setData(carService.getCarListByParams(startTime, endTime));
         return apiResponse;

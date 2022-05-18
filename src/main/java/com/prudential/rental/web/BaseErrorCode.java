@@ -16,6 +16,7 @@ public class BaseErrorCode {
     public static final ErrorCode ERR_ORDER_STATE = ErrorCode.of("ERR_ORDER_STATE", "order state is error");
     public static final ErrorCode ERR_CAR_NOT_EXIST = ErrorCode.of("ERR_CAR_NOT_EXIST", "car is not exist");
     public static final ErrorCode ERR_CAR_NO_STOCK = ErrorCode.of("ERR_CAR_NO_STOCK", "car is out of stock");
+    public static final ErrorCode ERR_TIME = ErrorCode.of("ERR_TIME", "startTime is after endTime");
     public static final ErrorCode ERR_SYSTEM_AUTH_REJECT = ErrorCode.of("ERR_SYSTEM_AUTH_REJECT", "非法请求");
     public static final ErrorCode ERR_SYSTEM_PARAM_MISSING = ErrorCode.of("ERR_SYSTEM_PARAM_MISSING", "缺少关键参数");
     public static final ErrorCode ERR_SYSTEM_PARAM_CHECK = ErrorCode.of("ERR_SYSTEM_PARAM_CHECK", "参数校验失败");

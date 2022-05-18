@@ -83,6 +83,9 @@ public class RentOrderServiceImpl extends ServiceImpl<RentOrderMapper, RentOrder
      */
     @Override
     public void rent(RentCarParams rentCarParams) {
+        if(rentCarParams.getStartTime().after(rentCarParams.getEndTime())){
+            throw new BusinessException(ErrorCodeConfig.ERR_TIME);
+        }
         Integer carId = rentCarParams.getCarId();
         Map<String, Object> rentingCondition = new HashMap<>();
         rentingCondition.put("state", OrderStateEnum.RENTING.getValue());
