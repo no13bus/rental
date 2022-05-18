@@ -52,3 +52,6 @@ CREATE TABLE `rent_order` (
 ## What's more
 According to the "A working customer facing web client online that could be used to quickly test the service",
 you can use swagger to make a quickly api test about the service. enjoy it.
+
+here is the swagger website:
+http://rental.v2j.tech:8888/swagger-ui/index.html
