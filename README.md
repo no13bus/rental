@@ -54,4 +54,4 @@ According to the "A working customer facing web client online that could be used
 you can use swagger to make a quickly api test about the service. enjoy it.
 
 here is the swagger website:
-http://rental.v2j.tech:8888/swagger-ui/index.html
+https://rental.v2j.tech/swagger-ui/index.html
