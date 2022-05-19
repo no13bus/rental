@@ -40,8 +40,8 @@ public class RentalController extends BaseController {
 
     @ApiOperation(value="list all of cars infos between start time and end time")
     @GetMapping("/cars")
-    public ApiResponse carsList(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-                                @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endTime
+    public ApiResponse carsList(@ApiParam(name = "startTime", value = "ex: 2022-05-18 10:00:00", required = true) @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
+                                @ApiParam(name = "endTime", value = "ex: 2022-05-20 10:00:00", required = true)  @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endTime
                                 ) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         apiResponse.setData(carService.getCarListByParams(startTime, endTime));
@@ -60,10 +60,10 @@ public class RentalController extends BaseController {
 
     @ApiOperation(value="get the order list")
     @GetMapping("/orders")
-    public ApiResponse orders(@RequestParam(required = false) Integer uid,
-                              @RequestParam(required = false) Integer state,
-                              @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  Date startTime,
-                              @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  Date endTime) {
+    public ApiResponse orders(@ApiParam(name = "uid", value = "ex: 1", required = false) @RequestParam(required = false) Integer uid,
+                              @ApiParam(name = "state", value = "ex: 1", required = false) @RequestParam(required = false) Integer state,
+                              @ApiParam(name = "startTime", value = "ex: 2022-05-18 10:00:00", required = false) @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  Date startTime,
+                              @ApiParam(name = "endTime", value = "ex: 2022-05-20 10:00:00", required = false) @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  Date endTime) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         apiResponse.setData(orderService.getOrderListByParams(uid, state, startTime, endTime));
         return apiResponse;
@@ -72,7 +72,7 @@ public class RentalController extends BaseController {
 
     @ApiOperation(value="cancel the rental order")
     @DeleteMapping("/orders/{orderId}")
-    public ApiResponse deleteOrder(@PathVariable("orderId") @NotNull(message = "orderId required") Integer orderId) {
+    public ApiResponse deleteOrder(@ApiParam(name = "orderId", value = "ex: 1", required = true) @PathVariable("orderId") @NotNull(message = "orderId required") Integer orderId) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         orderService.updateState(orderId, OrderStateEnum.CANCELED.getValue());
         return apiResponse;
@@ -81,7 +81,7 @@ public class RentalController extends BaseController {
 
     @ApiOperation(value="return the car, finish the rental")
     @PutMapping("/orders/{orderId}")
-    public ApiResponse finishOrder(@PathVariable("orderId") @NotNull(message = "orderId required") Integer orderId) {
+    public ApiResponse finishOrder(@ApiParam(name = "orderId", value = "ex: 1", required = true)  @PathVariable("orderId") @NotNull(message = "orderId required") Integer orderId) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         orderService.updateState(orderId, OrderStateEnum.FINISHED.getValue());
         return apiResponse;
