@@ -6,12 +6,10 @@ import com.prudential.rental.enums.OrderStateEnum;
 import com.prudential.rental.service.IRentCarService;
 import com.prudential.rental.service.IRentOrderService;
 import com.prudential.rental.web.ApiResponse;
-import com.prudential.rental.web.BaseController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +28,7 @@ import java.util.Date;
 @RestController
 @Validated
 @RequestMapping("/api/rental")
-public class RentalController extends BaseController {
+public class RentalController{
 
     @Autowired
     private IRentOrderService orderService;
@@ -51,8 +49,7 @@ public class RentalController extends BaseController {
 
     @ApiOperation(value="rent one car")
     @PostMapping("/cars")
-    public ApiResponse rent(@RequestBody @Valid RentCarParams rentCarParams, BindingResult br) {
-        checkParameters(br);
+    public ApiResponse rent(@RequestBody @Valid RentCarParams rentCarParams) {
         ApiResponse apiResponse = ApiResponse.buildSuccess();
         orderService.rent(rentCarParams);
         return apiResponse;
