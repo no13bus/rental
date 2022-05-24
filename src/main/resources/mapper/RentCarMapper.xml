@@ -17,7 +17,7 @@
         <include refid="Base_Column_List"/>
         from rent_car
         <trim prefix="where" prefixOverrides="and|or">
-            <if test="rentingCarIdList != null">
+            <if test="rentingCarIdList != null and rentingCarIdList.size() > 0 ">
                 id not in
                 <foreach item="item" index="index" collection="rentingCarIdList" open="(" separator="," close=")">
                     #{item}
